@@ -18,6 +18,7 @@ const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [user, setUser] = useState(null);
+    const [admin, setAdmin] = useState(false)
     const axiosInstance = useAxiosInstance()
 
     // Sign Up with email and password
@@ -49,6 +50,10 @@ const AuthProvider = ({ children }) => {
                 // setting loggedIn true and firebase user to user state
                 setIsLoggedIn(true);
                 setUser(user);
+                // Setting Admin
+                if(user.email === import.meta.env.VITE_SUPER_ADMIN){
+                    setAdmin(true)
+                }
                 // generating jwt token
                 const jwtUser = {
                     email: user.email,
@@ -75,7 +80,8 @@ const AuthProvider = ({ children }) => {
         logInUser,
         logOutUser,
         isLoggedIn,
-        user
+        user,
+        admin
     };
 
     // Checking is Loading

@@ -17,14 +17,11 @@ const Navbar = () => {
             </li>
             {user && (
                 <li>
-                    <NavLink to="/wishlist">Wishlist</NavLink>
+                    <NavLink to="/dashboard">Dashboard</NavLink>
                 </li>
             )}
             <li>
-                <NavLink to="/request">Request</NavLink>
-            </li>
-            <li>
-                <NavLink to="/services">Services</NavLink>
+                <NavLink to="/all_tests">All Tests</NavLink>
             </li>
         </>
     );
@@ -74,7 +71,7 @@ const Navbar = () => {
             <div className="navbar-end">
                 {!user && (
                     <Link
-                        to="/login"
+                        to="/sign_in"
                         className="btn btn-neutral bg-party-main border-none hover:bg-party-hover text-white mr-2"
                     >
                         Login
@@ -89,7 +86,6 @@ const Navbar = () => {
                         />
                         <button
                             onClick={handleLogout}
-                            to="/login"
                             className="btn btn-neutral bg-party-main border-none hover:bg-party-hover text-white mr-2"
                         >
                             Logout

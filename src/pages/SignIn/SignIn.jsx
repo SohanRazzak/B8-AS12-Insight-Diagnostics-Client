@@ -1,19 +1,22 @@
 import { GoogleAuthProvider } from "firebase/auth";
 import { useContext, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FaGoogle, FaLock } from "react-icons/fa";
 import HelmetMaker from "../../components/HelmetMaker/HelmateMaker";
 import { FiMail } from "react-icons/fi";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
+import axios from "axios";
 
 const SignIn = () => {
+    const navigate = useNavigate();
+    const { logInUser, googleLogin, user } = useContext(AuthContext);
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
-    const location = useLocation();
-    const moveTo = useNavigate();
-    const { logInUser, googleLogin } = useContext(AuthContext);
+        if(user){
+            return navigate(location.state || '/')
+        }
+    }, [user, navigate]);
     const GoogleProvider = new GoogleAuthProvider();
     const handleLogin = (e) => {
         e.preventDefault();
@@ -23,7 +26,7 @@ const SignIn = () => {
         logInUser(email, password)
             .then(() => {
                 toast("Login Successfull!");
-                location.state ? moveTo(location.state) : moveTo("/");
+                location.state ? navigate(location.state) : navigate("/");
             })
             .catch((err) =>
                 toast(
@@ -37,9 +40,22 @@ const SignIn = () => {
 
     const handleSocialLogin = () => {
         googleLogin()
-            .then(() => {
-                toast("Login Successfull!");
-                location.state ? moveTo(location.state) : moveTo("/");
+            .then((res) => {
+                if (res.user) {
+                    // Adding User to databse
+                    const user = {
+                        fullName: res.user.displayName,
+                        photo: res.user.photoURL,
+                        email: res.user.email,
+                        uid: res.user.uid,
+                    };
+                    axios.put("http://localhost:5000/users", user).then((res) => {
+                        if (res.data.insertedId) {
+                            toast("Login Successful!");
+                        }
+                    });
+                    location.state ? navigate(location.state) : navigate("/");
+                }
             })
             .catch((err) =>
                 toast(
@@ -51,6 +67,9 @@ const SignIn = () => {
             );
     };
 
+
+    
+    
     return (
         <>
             <HelmetMaker title="Sign In" />
