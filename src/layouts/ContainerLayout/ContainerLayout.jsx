@@ -1,4 +1,4 @@
-import {PropType} from 'prop-types';
+import {PropTypes} from 'prop-types';
 
 const ContainerLayout = ({children}) => {
     return (
@@ -9,7 +9,7 @@ const ContainerLayout = ({children}) => {
 };
 
 ContainerLayout.propTypes = {
-    children: PropType.node
+    children: PropTypes.node
 }
 
 export default ContainerLayout;

@@ -57,7 +57,6 @@ const SignUp = () => {
         const userName = form.get("userName");
         const photoURL = form.get("photo");
         const isMatchedPass = password === confirm_password;
-        console.log(isMatchedPass, password, confirm_password);
         if (isMatchedPass === false) {
             return setPassUnmatched(true);
         } else {
@@ -85,6 +84,7 @@ const SignUp = () => {
                         zila: selectedZila,
                         upzila: selectedUpzila,
                         uid,
+                        status: 'active'
                     };
                     axios
                         .post("http://localhost:5000/users", user)
@@ -117,10 +117,11 @@ const SignUp = () => {
                         fullName: res.user.displayName,
                         photo: res.user.photoURL,
                         email: res.user.email,
-                        bloodGroup,
-                        zila: selectedZila,
-                        upzila: selectedUpzila,
+                        bloodGroup: "---",
+                        zila: "---",
+                        upzila: "---",
                         uid: res.user.uid,
+                        status: 'active'
                     };
                     axios
                         .put("http://localhost:5000/users", user)

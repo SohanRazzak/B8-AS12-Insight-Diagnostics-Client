@@ -60,7 +60,7 @@ const Navbar = () => {
                     to="/"
                     className="tracking-tight md:tracking-normal px-2 md:px-4 btn btn-ghost normal-case text-2xl font-black text-rose-600 hover:text-teal-800 drop-shadow-md"
                 >
-                    Insight Diagnostics
+                    <img src="https://i.ibb.co/kGPSy7v/ids.png" alt="Insight Diagnostics" className="h-10 pr-2" />
                 </Link>
             </div>
             <div className="navbar-center hidden lg:flex">

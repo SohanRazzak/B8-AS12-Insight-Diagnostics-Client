@@ -47,7 +47,11 @@ const SignIn = () => {
                         fullName: res.user.displayName,
                         photo: res.user.photoURL,
                         email: res.user.email,
+                        bloodGroup: "---",
+                        zila: "---",
+                        upzila: "---",
                         uid: res.user.uid,
+                        status: 'active'
                     };
                     axios.put("http://localhost:5000/users", user).then((res) => {
                         if (res.data.insertedId) {

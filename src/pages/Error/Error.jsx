@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
+import HelmetMaker from "../../components/HelmetMaker/HelmateMaker";
 
 const Error = () => {
     return (
         <div className="bg-gradient-to-r from-purple-300 to-blue-200">
+            <HelmetMaker title="Error 404 - Page not found!"></HelmetMaker>
         <div className="w-9/12 m-auto py-16 min-h-screen flex items-center justify-center">
             <div className="bg-white shadow overflow-hidden sm:rounded-lg pb-8">
                 <div className="border-t border-gray-200 text-center pt-8">
