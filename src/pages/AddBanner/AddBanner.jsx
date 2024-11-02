@@ -7,14 +7,14 @@ import { storage } from "../../configs/firebase.config";
 import { useState } from "react";
 import { FaCheck, FaTrashAlt, FaUpload } from "react-icons/fa";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
+import "../AddBanner/AddBanner.css"
 
 const AddBanner = () => {
     const [file, setFile] = useState(null);
     const [imageURL, setImageURL] = useState(null);
     const [btnDisabled, setBtnDisabled] = useState(true);
     const [bytes, setBytes] = useState({ total: 0, uploaded: 0 });
-    //console.log(file)
-    console.log(bytes.total);
 
     const axiosInstance = useAxiosInstance();
 
@@ -60,7 +60,16 @@ const AddBanner = () => {
     // firebase Upload file
 
     const handleUpload = () => {
-        if (!file) return;
+        if (!file) {
+            Swal.fire({
+                title: "No Selected File!",
+                text: "Please select a Image file first!",
+                icon: "error",
+                target: document.querySelector("#add_banner_modal"),
+                customClass: { container: "!z-[9999]" },
+            });
+            return null;
+        }
 
         const storageRef = ref(storage, `upload_${file.name}`);
         const uploadTask = uploadBytesResumable(storageRef, file);
@@ -154,8 +163,11 @@ const AddBanner = () => {
                                                                         ✕
                                                                     </button>
                                                                 </form>
-                                                                <img src={banner.image}
-                                                                className="w-96 mx-auto border-2 border-accent object-cover rounded-lg"
+                                                                <img
+                                                                    src={
+                                                                        banner.image
+                                                                    }
+                                                                    className="w-96 mx-auto border-2 border-accent object-cover rounded-lg"
                                                                 />
                                                             </div>
                                                         </dialog>
